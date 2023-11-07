@@ -1,4 +1,10 @@
 package dao;
+
+import java.util.List;
+import java.util.UUID;
+
+import models.Customer;
+
 public interface CustomerDAO extends DAO<Customer>{
 
 
@@ -13,7 +19,7 @@ public interface CustomerDAO extends DAO<Customer>{
 
 //READ
 
-	Customer get( int id);
+	Customer get( UUID id);
 
 	List<Customer> getAll();
 

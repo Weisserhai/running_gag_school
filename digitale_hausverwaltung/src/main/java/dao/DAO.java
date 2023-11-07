@@ -1,12 +1,13 @@
 package dao;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface DAO<T> {
 
 	int create(T t);
 
-	T get(int i);
+	T get(UUID i);
 
 	List<T> getAll();
 
