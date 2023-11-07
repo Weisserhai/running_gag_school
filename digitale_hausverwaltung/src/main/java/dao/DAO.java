@@ -1,16 +1,17 @@
 package dao;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface DAO<T> {
 
 	int create(T t);
 
-	T get(int i);
+	T get(UUID i);
 
 	List<T> getAll();
 
-	boolean update(T t);
+	int update(T t);
 
-	boolean delete(int i);
+	boolean delete(UUID i);
 }
