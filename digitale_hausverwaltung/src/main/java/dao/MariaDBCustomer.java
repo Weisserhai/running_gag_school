@@ -29,8 +29,8 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from create without Object: " + e.getMessage());
             e.printStackTrace();
+            return -1;
         }
-        return 0;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from create with Object: " + e.getMessage());
             e.printStackTrace();
+            return -1;
         }
-        return 0;
     }
 
     @Override
@@ -89,8 +89,8 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from getAll: " + e.getMessage());
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -102,13 +102,11 @@ public class MariaDBCustomer implements CustomerDAO {
             ps.setObject(3, id);
             int resultSet = ps.executeUpdate();
             return (resultSet != 0);
-
-
         } catch (SQLException e) {
             System.out.println("Error from update without Object: " + e.getMessage());
             e.getStackTrace();
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -123,8 +121,8 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from update with Object: " + e.getMessage());
             e.getStackTrace();
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -137,8 +135,8 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from delete: " + e.getMessage());
             e.getStackTrace();
+            return false;
         }
-        return false;
     }
 
 }
