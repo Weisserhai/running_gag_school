@@ -12,41 +12,35 @@ public class Customer implements Customers  {
         this.firstname = firstname;
         this.lastname = lastname;
     }
-    @Override
-    public int getId() {
 
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getId'");
+    @Override
+    public UUID getId() {
+        return id;
     }
 
     @Override
-    public void setId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setId'");
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     @Override
     public String getFirstname() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getFirstname'");
+        return firstname;
     }
 
     @Override
     public void setFirstname(String firstname) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setFirstname'");
+        this.firstname = firstname;
     }
 
     @Override
     public String getLastname() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLastname'");
+        return lastname;
     }
 
     @Override
     public void setLastname(String lastname) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setLastname'");
+        this.lastname = lastname;
     }
 
 }
