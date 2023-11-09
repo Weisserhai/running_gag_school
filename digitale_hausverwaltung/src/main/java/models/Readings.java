@@ -1,14 +1,15 @@
 package models;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public interface Readings {
 
-	int getId();
-	void setId(int id);
+	UUID getId();
+	void setId(UUID id);
 
-	String getArtofreading();
-	void setArtofreading(String artofreading);
+	String getTypeofreading();
+	void setTypeofreading(String typeofreading);
 
 	LocalDate getDateofreading();
 	void setDateofreading(LocalDate dateofreading);
@@ -21,7 +22,4 @@ public interface Readings {
 
 	Customers getCustomer();
 	void setCustomer(Customers customer);
-
-
-
 }

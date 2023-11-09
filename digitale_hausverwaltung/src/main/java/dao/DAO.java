@@ -13,5 +13,5 @@ public interface DAO<T> {
 
 	boolean update(T t);
 
-	boolean delete(int i);
+	boolean delete(UUID i);
 }
