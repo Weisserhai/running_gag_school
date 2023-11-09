@@ -11,7 +11,7 @@ public interface DAO<T> {
 
 	List<T> getAll();
 
-	int update(T t);
+	boolean update(T t);
 
 	boolean delete(UUID i);
 }

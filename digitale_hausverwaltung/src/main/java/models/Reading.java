@@ -73,7 +73,6 @@ public class Reading implements Readings{
         this.comment = comment;
     }
 
-    //TODO
     @Override
     public Customers getCustomer() {
         Customers customer = MariaDBCustomerDAO.get(customer_id);

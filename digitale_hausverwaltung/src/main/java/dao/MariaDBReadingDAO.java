@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +34,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ps.setString(6, comment);
             return ps.executeUpdate();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            System.out.println("Error from create" + e.getMessage());
             e.printStackTrace();
         }
 
@@ -70,6 +71,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
                 return reading;
             }
         } catch (SQLException e) {
+            System.out.println("Error from get" + e.getMessage());
             e.printStackTrace();
         }
 
@@ -78,30 +80,112 @@ public class MariaDBReadingDAO implements ReadingDAO {
 
     @Override
     public List<Reading> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        List<Reading> readings = new ArrayList<>();
+        String sql = "SELECT * FROM reading";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                readings.add(new Reading(
+                        rs.getObject("id" , java.util.UUID.class),
+                        rs.getObject("customer_id" , java.util.UUID.class),
+                        rs.getDate("dateOfReading").toLocalDate(), 
+                        rs.getString("typeOfReading"), 
+                        rs.getInt("meterCount"), 
+                        rs.getString("comment")
+                    )
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error from getAll" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return readings;
     }
 
     @Override
-    public List<Reading> getAllFromCustomer(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllFromCustomer'");
+    public List<Reading> getAllFromCustomer(UUID cust_id) {
+        List<Reading> readings = new ArrayList<>();
+        String sql = "SELECT * FROM reading WHERE customerId = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setObject(1, cust_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                readings.add(new Reading(
+                        rs.getObject("id" , java.util.UUID.class),
+                        rs.getObject("customer_id" , java.util.UUID.class),
+                        rs.getDate("dateOfReading").toLocalDate(), 
+                        rs.getString("typeOfReading"), 
+                        rs.getInt("meterCount"), 
+                        rs.getString("comment")
+                    )
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error from getAllFromCustomer" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return readings;
     }
 
     @Override
     public List<Reading> getReadingsInit2Years() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getReadingsInit2Years'");
+        List<Reading> readings = new ArrayList<>();
+        String sql = "SELECT * FROM reading WHERE dateOfReading >= DATE_SUB(CURDATE(), INTERVAL 2 YEAR);";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                readings.add(new Reading(
+                        rs.getObject("id" , java.util.UUID.class),
+                        rs.getObject("customer_id" , java.util.UUID.class),
+                        rs.getDate("dateOfReading").toLocalDate(), 
+                        rs.getString("typeOfReading"), 
+                        rs.getInt("meterCount"), 
+                        rs.getString("comment")
+                    )
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error from getReadingsInit2Years" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return readings;
     }
 
     @Override
-    public List<Reading> getReadingsForCustomer(UUID id, LocalDate start, LocalDate end) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getReadingsForCustomer'");
+    public List<Reading> getReadingsForCustomer(UUID cust_id, LocalDate start, LocalDate end) {
+        List<Reading> readings = new ArrayList<>();
+        String sql = "SELECT * FROM reading WHERE customerId = ? AND dateOfReading between ? AND ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setObject(1, cust_id);
+            ps.setDate(2, Date.valueOf(start));
+            ps.setDate(3, Date.valueOf(end));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                readings.add(new Reading(
+                        rs.getObject("id" , java.util.UUID.class),
+                        rs.getObject("customer_id" , java.util.UUID.class),
+                        rs.getDate("dateOfReading").toLocalDate(), 
+                        rs.getString("typeOfReading"), 
+                        rs.getInt("meterCount"), 
+                        rs.getString("comment")
+                    )
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error from getReadingsForCustomer" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return readings;
     }
 
     @Override
-    public int update(Reading reading) {
+    public boolean update(Reading reading) {
         return update(
             reading.getId(),
             reading.getTypeofreading(), 
@@ -112,7 +196,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
     }
 
     @Override
-    public int update(UUID id, String typeofreading, LocalDate dateofreading, int metercount, String comment) {
+    public boolean update(UUID id, String typeofreading, LocalDate dateofreading, int metercount, String comment) {
         try {
             PreparedStatement ps = conn.prepareStatement(
                 "UPDATE reading set dateOfReading = ?, typeOfReading = ?, meterCount = ?, comment = ? WHERE id = ?"
@@ -121,18 +205,28 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ps.setString(2, typeofreading);
             ps.setInt(3, metercount);
             ps.setString(4, comment);
-            return ps.executeUpdate();
+            return (ps.executeUpdate() !=0) ;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            System.out.println("Error from update" + e.getMessage());
             e.printStackTrace();
         }
 
-        return 0;
+        return false;
     }
 
     @Override
     public boolean delete(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        try {
+            PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM reading WHERE id = ?"
+            );
+            ps.setObject(1, id);
+            return (ps.executeUpdate() !=0);
+        } catch (SQLException e) {
+            System.out.println("Error from delete" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

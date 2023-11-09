@@ -25,21 +25,21 @@ public interface ReadingDAO extends DAO<Reading>{
 
 
 
-	List<Reading> getAllFromCustomer(UUID id);
+	List<Reading> getAllFromCustomer(UUID cust_id);
 
 
 	List<Reading> getReadingsInit2Years();
 
 
-	List<Reading> getReadingsForCustomer(UUID id,  LocalDate start,  LocalDate end);
+	List<Reading> getReadingsForCustomer(UUID cust_id,  LocalDate start,  LocalDate end);
 
 
 	//UPDATE
 
-	int update(Reading reading);
+	boolean update(Reading reading);
 
 
-	int update(UUID id, String typeofreading,  LocalDate dateofreading,  int metercount,  String comment);
+	boolean update(UUID id, String typeofreading,  LocalDate dateofreading,  int metercount,  String comment);
 
 	//DELETE
 
