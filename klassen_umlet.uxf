@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>119</x>
+      <y>196</y>
+      <w>217</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>MariaDBFFacManDAO
+--
+- connection: Connection
+--
++ getConnection(): Connection(static)
++ create(): void
++ create(Reading): int
++ create(LocalDate, String, int, String, Customer):int
++ get(UUID): Reading
++ getAll(): List&lt;Reading&gt;
++ getAllFromCustomer(UUID): List&lt;Reading&gt;
++ update(Reading): boolean
++ delete(UUID): boolean
++ create(Customer): int
++ create(String, String): int
++ get(UUID): Customer
++ getAll(): List&lt;Customer&gt;
++ update(Customer): boolean
++ update(UUID, String, String)
++ delete(UUID): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>14</x>
+      <y>14</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>SimpleClass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>406</x>
+      <y>196</y>
+      <w>490</w>
+      <h>371</h>
+    </coordinates>
+    <panel_attributes>Reading
+--
+- id: UUID
+- dateOfReading: LocalDate
+- typeOfReading: String
+- meter: int
+- comment: string
+- customer: Customer
+--
++ getID(): UUID
++ setID(id: UUID): void
++ getDateOfReading(): LocalDate
++ setDateOfReading(dateOfReading: LocalDate): void
++ getTypeOfReading(): String
++ setTypeOfReading(typeOfRading: String): void
++ getMeterCount(): int
++ setMeterCount(meterCount: int): void
++ getComment(): String
++ setComment(comment: String): void
++ getCustomer(): Customer
++ setCustomer(customer: Customer): void
++ create(Reading): int
++ create(LocalDate, String, int, String, Customer):int
++ get(UUID): Reading
++ getAll(): List&lt;Reading&gt;
++ getAllFromCustomer(UUID): List&lt;Reading&gt;
++ update(Reading): boolean
++ delete(UUID): boolean
++ create(t: T): int
++ get(id: UUID): T
++ getAll(): List&lt;T&gt;
++ update(t: T): boolean
++ delete(id: UUID): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>196</y>
+      <w>273</w>
+      <h>259</h>
+    </coordinates>
+    <panel_attributes>Customer
+--
+- ID: UUID
+- firstName: String
+- lastName: String
+--
++ getID(): UUID
++ setID(id: UUID): void
++ getFirstName(): String
++ setFirstName(firstName: String): void
++ getLastName(): String
++ setLastName(lastName: String): void
++ create(Customer): int
++ create(String, String): int
++ get(UUID): Customer
++ getAll(): List&lt;Customer&gt;
++ update(Customer): boolean
++ update(UUID, String, String): void
++ delete(UUID): boolean
++ create(t: T): int
++ get(id: UUID): T
++ getAll(): List&lt;T&gt;
++ update(t: T): boolean
++ delete(id: UUID): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
