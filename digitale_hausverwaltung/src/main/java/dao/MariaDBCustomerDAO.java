@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 import models.Customer;
-public class MariaDBCustomer implements CustomerDAO {
+public class MariaDBCustomerDAO implements CustomerDAO {
     private Connection connection = null;
 
-    public MariaDBCustomer(){
+    public MariaDBCustomerDAO(){
         connection = MariaDBFacManDAO.connectToMariaDB();
     }
 
@@ -29,8 +29,8 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from create without Object: " + e.getMessage());
             e.printStackTrace();
-            return -1;
         }
+        return 0;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from create with Object: " + e.getMessage());
             e.printStackTrace();
-            return -1;
         }
+        return 0;
     }
 
     @Override
@@ -62,7 +62,6 @@ public class MariaDBCustomer implements CustomerDAO {
             while(resultSet.next()){
                 return customer;
             }
-
         } catch (SQLException e) {
             System.out.println("Error from get: " + e.getMessage());
             e.printStackTrace();
@@ -79,22 +78,22 @@ public class MariaDBCustomer implements CustomerDAO {
 
             while (resultSet.next()){
                 Customer customer = new Customer(
-                (UUID) resultSet.getObject("ID"),
-                resultSet.getString("firstName"),
-                resultSet.getString("lastName")
-            );
+                    (UUID) resultSet.getObject("ID"),
+                    resultSet.getString("firstName"),
+                    resultSet.getString("lastName")
+                );
                 list.add(customer);
             }
             return list;
         } catch (SQLException e) {
             System.out.println("Error from getAll: " + e.getMessage());
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     @Override
-    public boolean update(int id, String firstname, String lastname) {
+    public boolean update(UUID id, String firstname, String lastname) {
         try {
             PreparedStatement ps = connection.prepareStatement("Update Customer set firstName = ?, firstName = ? where ID = ?");
             ps.setString(1, firstname);
@@ -105,28 +104,17 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from update without Object: " + e.getMessage());
             e.getStackTrace();
-            return false;
         }
+        return false;
     }
 
     @Override
     public boolean update(Customer customer) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("Update Customer set firstName = ?, firstName = ? where ID = ?");
-            ps.setString(1,customer.getFirstname());
-            ps.setString(2, customer.getLastname());
-            ps.setObject(3, customer.getId());
-            int resultSet = ps.executeUpdate();
-            return (resultSet != 0);
-        } catch (SQLException e) {
-            System.out.println("Error from update with Object: " + e.getMessage());
-            e.getStackTrace();
-            return false;
-        }
+        return update(customer.getId(), customer.getFirstname(), customer.getLastname());
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(UUID id) {
         try {
             PreparedStatement ps = connection.prepareStatement("Delete from Customer where ID = ?");
             ps.setObject(1, id);
@@ -135,8 +123,7 @@ public class MariaDBCustomer implements CustomerDAO {
         } catch (SQLException e) {
             System.out.println("Error from delete: " + e.getMessage());
             e.getStackTrace();
-            return false;
         }
+        return false;
     }
-
 }

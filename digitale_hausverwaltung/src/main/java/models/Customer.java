@@ -42,5 +42,4 @@ public class Customer implements Customers  {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
 }

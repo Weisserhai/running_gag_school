@@ -1,11 +1,9 @@
 package models;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.UUID;
+
+import dao.MariaDBCustomerDAO;
 
 public class Reading implements Readings{
     private UUID id;
@@ -14,6 +12,7 @@ public class Reading implements Readings{
     private String typeofreading;
     private int metercount;
     private String comment;
+    private Customers customer;
 
     public Reading(UUID id, UUID customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
         this.id = id;
@@ -22,6 +21,8 @@ public class Reading implements Readings{
         this.typeofreading = typeofreading;
         this.metercount = metercount;
         this.comment = comment;
+        MariaDBCustomerDAO customerDAO = new MariaDBCustomerDAO();
+        this.customer = customerDAO.get(customer_id);
     } 
 
     public UUID getId() {
@@ -75,15 +76,12 @@ public class Reading implements Readings{
 
     @Override
     public Customers getCustomer() {
-        Customers customer = MariaDBCustomerDAO.get(customer_id);
-
         return customer;
     }
 
     @Override
     public void setCustomer(Customers customer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCustomer'");
+        this.customer = customer;
     }
 
     public UUID getCustomerID() {

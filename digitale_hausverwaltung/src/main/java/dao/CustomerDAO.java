@@ -12,25 +12,25 @@ public interface CustomerDAO extends DAO<Customer>{
 // CREATE
 
 
-	int create( String firstname,  String lastname);
+	int create(String firstname,  String lastname);
 
 
 	int create(Customer customer);
 
 //READ
 
-	Customer get( UUID id);
+	Customer get(UUID id);
 
 	List<Customer> getAll();
 
 //UPDATE
 
-	boolean update( int id, String firstname,  String lastname);
+	boolean update(UUID id, String firstname,  String lastname);
 
 
 	boolean update(Customer customer);
 
 //DELETE
 
-	boolean delete( int id);
+	boolean delete(UUID id);
 }
