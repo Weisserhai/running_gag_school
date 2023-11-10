@@ -19,16 +19,16 @@ public class MariaDBCustomerDAO implements CustomerDAO {
     @Override
     public int create(String firstname, String lastname) {
         try {
-            PreparedStatement ps = connection.prepareStatement("Insert into customer (ID, firstName, lastName) values (?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("Insert into customer (UUID, firstName, lastName) values (?, ?, ?)");
             String generatedUUID = UUID.randomUUID().toString();
             ps.setObject(1, generatedUUID);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
             ps.executeUpdate();
-            PreparedStatement IdSelect = connection.prepareStatement("SELECT id FROM customer WHERE UUID = ?");
+            PreparedStatement IdSelect = connection.prepareStatement("SELECT ID FROM customer WHERE UUID = ?");
             IdSelect.setString(1, generatedUUID);
             ResultSet rs = IdSelect.executeQuery();
-            int id = rs.getInt("id");
+            int id = rs.getInt("ID");
 
             return id;
         } catch (SQLException e) {

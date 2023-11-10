@@ -23,6 +23,7 @@ public class Customer implements Customers  {
         this.firstname = firstname;
         this.lastname = lastname;
     }
+    
     @Override
     public int getId() {
         return id;

@@ -37,6 +37,16 @@ public class Reading implements Readings{
         this.customer = customerDAO.get(customer_id);
     } 
 
+    public Reading(int customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
+        this.customer_id = customer_id;
+        this.dateofreading = dateofreading;
+        this.typeofreading = typeofreading;
+        this.metercount = metercount;
+        this.comment = comment;
+        MariaDBCustomerDAO customerDAO = new MariaDBCustomerDAO();
+        this.customer = customerDAO.get(customer_id);
+    } 
+
     public int getId() {
         return id;
     }

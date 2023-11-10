@@ -34,10 +34,10 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ps.setInt(5, metercount);
             ps.setString(6, comment);
             ps.executeUpdate();
-            PreparedStatement IdSelect = conn.prepareStatement("SELECT id FROM reading WHERE UUID = ?");
+            PreparedStatement IdSelect = conn.prepareStatement("SELECT ID FROM reading WHERE UUID = ?");
             IdSelect.setString(1, generatedUUID);
             ResultSet rs = IdSelect.executeQuery();
-            int id = rs.getInt("id");
+            int id = rs.getInt("ID");
 
             return id;
         } catch (SQLException e) {
@@ -94,7 +94,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 readings.add(new Reading(
-                        rs.getInt("id"),
+                        rs.getInt("ID"),
                         rs.getString("UUID"),
                         rs.getInt("customer_id"),
                         rs.getDate("dateOfReading").toLocalDate(), 
@@ -122,7 +122,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 readings.add(new Reading(
-                        rs.getInt("id"),
+                        rs.getInt("ID"),
                         rs.getString("UUID"),
                         rs.getInt("customer_id"),
                         rs.getDate("dateOfReading").toLocalDate(), 
@@ -148,7 +148,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 readings.add(new Reading(
-                        rs.getInt("id"),
+                        rs.getInt("ID"),
                         rs.getString("UUID"),
                         rs.getInt("customer_id"),
                         rs.getDate("dateOfReading").toLocalDate(), 
@@ -178,7 +178,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 readings.add(new Reading(
-                        rs.getInt("id"),
+                        rs.getInt("ID"),
                         rs.getString("UUID"),
                         rs.getInt("customer_id"),
                         rs.getDate("dateOfReading").toLocalDate(), 
@@ -211,7 +211,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
     public boolean update(int id, String typeofreading, LocalDate dateofreading, int metercount, String comment) {
         try {
             PreparedStatement ps = conn.prepareStatement(
-                "UPDATE reading set dateOfReading = ?, typeOfReading = ?, meterCount = ?, comment = ? WHERE id = ?"
+                "UPDATE reading set dateOfReading = ?, typeOfReading = ?, meterCount = ?, comment = ? WHERE ID = ?"
             );
             ps.setDate(1, Date.valueOf(dateofreading));
             ps.setString(2, typeofreading);
@@ -231,7 +231,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
     public boolean delete(int id) {
         try {
             PreparedStatement ps = conn.prepareStatement(
-                "DELETE FROM reading WHERE id = ?"
+                "DELETE FROM reading WHERE ID = ?"
             );
             ps.setObject(1, id);
             return (ps.executeUpdate() !=0);
