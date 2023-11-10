@@ -13,11 +13,11 @@ public class Customer implements Customers  {
         this.lastname = lastname;
     }
 
-    // public Customer(String uuid, String firstname, String lastname ){
-    //     this.uuid = uuid;
-    //     this.firstname = firstname;
-    //     this.lastname = lastname;
-    // }
+    public Customer(String uuid, String firstname, String lastname ){
+        this.uuid = uuid;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
 
     public Customer(String firstname, String lastname){
         this.firstname = firstname;
