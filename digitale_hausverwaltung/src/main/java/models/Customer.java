@@ -6,12 +6,12 @@ public class Customer implements Customers  {
     private String firstname;
     private String lastname;
 
-    // public Customer(int id ,String uuid, String firstname, String lastname ){
-    //     this.id = id;
-    //     this.uuid = uuid;
-    //     this.firstname = firstname;
-    //     this.lastname = lastname;
-    // }
+    public Customer(int id ,String uuid, String firstname, String lastname ){
+        this.id = id;
+        this.uuid = uuid;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
 
     // public Customer(String uuid, String firstname, String lastname ){
     //     this.uuid = uuid;
