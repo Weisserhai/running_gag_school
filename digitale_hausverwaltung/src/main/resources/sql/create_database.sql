@@ -8,14 +8,16 @@ GRANT ALL PRIVILEGES ON running_gag_database.* TO 'running_gag'@'localhost';
 FLUSH PRIVILEGES;
 
 CREATE TABLE Customer(
-	ID UUID primary key NOT NULL,
+    ID int primary key NOT NULL,
+	UUID varchar(36) NOT NULL,
 	firstName varchar(50) NOT NULL,
 	lastName varchar(50) NOT NULL
 	);
 
 CREATE TABLE Reading(
-    ID UUID primary key NOT NULL,
-    customerId UUID NOT NULL,
+    ID int primary key NOT NULL,
+	UUID varchar(36) NOT NULL,
+    customerId int NOT NULL,
     dateOfReading date NOT NULL,
     typeOfReading varchar(50) NOT NULL,
     meterCount int NOT NULL,

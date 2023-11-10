@@ -1,25 +1,36 @@
 package models;
 
-import java.util.UUID;
-
 public class Customer implements Customers  {
-    private UUID id;
+    private int id;
+    private String uuid;
     private String firstname;
     private String lastname;
 
-    public Customer(UUID id, String firstname, String lastname ){
+    public Customer(int id ,String uuid, String firstname, String lastname ){
         this.id = id;
+        this.uuid = uuid;
         this.firstname = firstname;
         this.lastname = lastname;
     }
 
+    public Customer(String uuid, String firstname, String lastname ){
+        this.uuid = uuid;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public Customer(String firstname, String lastname){
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+    
     @Override
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -41,5 +52,13 @@ public class Customer implements Customers  {
     @Override
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getUUID() {
+        return uuid;
+    }
+
+    public void setUUID(String uuid) {
+        this.uuid = uuid;
     }
 }
