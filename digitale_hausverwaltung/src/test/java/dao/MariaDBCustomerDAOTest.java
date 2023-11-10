@@ -31,7 +31,6 @@ public class MariaDBCustomerDAOTest {
     @Test
     @DisplayName("Testing method create with object")
     void testCreateObject(){
-        int id = 555;
         Customer tmpCustomer = new Customer("Maxl", "Mustermann");
         int tmpUUID = customer.create(tmpCustomer);
         assertNotNull(tmpUUID);
