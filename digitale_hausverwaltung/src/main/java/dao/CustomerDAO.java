@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.List;
-import java.util.UUID;
 
 import models.Customer;
 
@@ -19,18 +18,18 @@ public interface CustomerDAO extends DAO<Customer>{
 
 //READ
 
-	Customer get(UUID id);
+	Customer get(int id);
 
 	List<Customer> getAll();
 
 //UPDATE
 
-	boolean update(UUID id, String firstname,  String lastname);
+	boolean update(int id, String firstname,  String lastname);
 
 
 	boolean update(Customer customer);
 
 //DELETE
 
-	boolean delete(UUID id);
+	boolean delete(int id);
 }

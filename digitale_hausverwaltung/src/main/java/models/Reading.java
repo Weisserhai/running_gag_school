@@ -1,21 +1,33 @@
 package models;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import dao.MariaDBCustomerDAO;
 
 public class Reading implements Readings{
-    private UUID id;
-    private UUID customer_id;
+    private int id;
+    private String uuid;
+    private int customer_id;
     private LocalDate dateofreading;
     private String typeofreading;
     private int metercount;
     private String comment;
     private Customers customer;
 
-    public Reading(UUID id, UUID customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
+    public Reading(int id, String uuid, int customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
         this.id = id;
+        this.uuid = uuid;
+        this.customer_id = customer_id;
+        this.dateofreading = dateofreading;
+        this.typeofreading = typeofreading;
+        this.metercount = metercount;
+        this.comment = comment;
+        MariaDBCustomerDAO customerDAO = new MariaDBCustomerDAO();
+        this.customer = customerDAO.get(customer_id);
+    } 
+    
+    public Reading(String uuid, int customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
+        this.uuid = uuid;
         this.customer_id = customer_id;
         this.dateofreading = dateofreading;
         this.typeofreading = typeofreading;
@@ -25,12 +37,22 @@ public class Reading implements Readings{
         this.customer = customerDAO.get(customer_id);
     } 
 
-    public UUID getId() {
+    public Reading(int customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
+        this.customer_id = customer_id;
+        this.dateofreading = dateofreading;
+        this.typeofreading = typeofreading;
+        this.metercount = metercount;
+        this.comment = comment;
+        MariaDBCustomerDAO customerDAO = new MariaDBCustomerDAO();
+        this.customer = customerDAO.get(customer_id);
+    } 
+
+    public int getId() {
         return id;
     }
 
     @Override
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -84,11 +106,19 @@ public class Reading implements Readings{
         this.customer = customer;
     }
 
-    public UUID getCustomerID() {
+    public int getCustomerID() {
         return customer_id;
     }
 
-    public void setCustomerID(UUID customer_id) {
+    public void setCustomerID(int customer_id) {
         this.customer_id = customer_id;
+    }
+
+    public String getUUID() {
+        return uuid;
+    }
+
+    public void setUUID(String uuid) {
+        this.uuid = uuid;
     }
 }
