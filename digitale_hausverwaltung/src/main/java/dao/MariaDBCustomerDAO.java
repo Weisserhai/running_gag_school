@@ -17,41 +17,45 @@ public class MariaDBCustomerDAO implements CustomerDAO {
     }
 
     @Override
-    public UUID create(String firstname, String lastname) {
+    public int create(String firstname, String lastname) {
         try {
-            PreparedStatement ps = connection.prepareStatement("Insert into USERS (ID, firstName, lastName) values (?, ?, ?)");
-            UUID generatUuid = UUID.randomUUID();
-            ps.setObject(1, generatUuid);
+            PreparedStatement ps = connection.prepareStatement("Insert into customer (ID, firstName, lastName) values (?, ?, ?)");
+            String generatedUUID = UUID.randomUUID().toString();
+            ps.setObject(1, generatedUUID);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
             ps.executeUpdate();
-            return generatUuid;
+            PreparedStatement IdSelect = connection.prepareStatement("SELECT id FROM customer WHERE UUID = ?");
+            IdSelect.setString(1, generatedUUID);
+            ResultSet rs = IdSelect.executeQuery();
+            int id = rs.getInt("id");
+
+            return id;
         } catch (SQLException e) {
             System.out.println("Error from create without Object: " + e.getMessage());
             e.printStackTrace();
         }
-        return null;
+        return 0;
     }
 
     @Override
-    public UUID create(Customer customer) {
+    public int create(Customer customer) {
         return create(customer.getFirstname(), customer.getLastname());
     }
 
     @Override
-    public Customer get(UUID id) {
+    public Customer get(int id) {
         try {
-            PreparedStatement ps = connection.prepareStatement("Select * from Customer where ID = ?");
+            PreparedStatement ps = connection.prepareStatement("Select * from customer where ID = ?");
             ps.setObject(1,id);
             ResultSet resultSet = ps.executeQuery();
             Customer customer = new Customer(
-                id,
+                resultSet.getInt("ID"),
+                resultSet.getString("UUID"),
                 resultSet.getString("firstName"),
                 resultSet.getString("lastName")
             );
-            while(resultSet.next()){
-                return customer;
-            }
+            return customer;
         } catch (SQLException e) {
             System.out.println("Error from get: " + e.getMessage());
             e.printStackTrace();
@@ -62,13 +66,14 @@ public class MariaDBCustomerDAO implements CustomerDAO {
     @Override
     public List<Customer> getAll() {
         try {
-            PreparedStatement ps = connection.prepareStatement("Select * from Customer");
+            PreparedStatement ps = connection.prepareStatement("Select * from customer");
             ResultSet resultSet = ps.executeQuery();
             List<Customer> list = new ArrayList<Customer>();
 
             while (resultSet.next()){
                 Customer customer = new Customer(
-                    (UUID) resultSet.getObject("ID"),
+                    resultSet.getInt("ID"),
+                    resultSet.getString("UUID"),
                     resultSet.getString("firstName"),
                     resultSet.getString("lastName")
                 );
@@ -83,12 +88,12 @@ public class MariaDBCustomerDAO implements CustomerDAO {
     }
 
     @Override
-    public boolean update(UUID id, String firstname, String lastname) {
+    public boolean update(int id, String firstname, String lastname) {
         try {
-            PreparedStatement ps = connection.prepareStatement("Update Customer set firstName = ?, firstName = ? where ID = ?");
+            PreparedStatement ps = connection.prepareStatement("Update customer set firstName = ?, firstName = ? where ID = ?");
             ps.setString(1, firstname);
             ps.setString(2,lastname);
-            ps.setObject(3, id);
+            ps.setInt(3, id);
             int resultSet = ps.executeUpdate();
             return (resultSet != 0);
         } catch (SQLException e) {
@@ -104,10 +109,10 @@ public class MariaDBCustomerDAO implements CustomerDAO {
     }
 
     @Override
-    public boolean delete(UUID id) {
+    public boolean delete(int id) {
         try {
-            PreparedStatement ps = connection.prepareStatement("Delete from Customer where ID = ?");
-            ps.setObject(1, id);
+            PreparedStatement ps = connection.prepareStatement("Delete from customer where ID = ?");
+            ps.setInt(1, id);
             int resultSet = ps.executeUpdate();
             return (resultSet != 0);
         } catch (SQLException e) {

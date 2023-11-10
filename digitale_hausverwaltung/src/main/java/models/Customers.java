@@ -1,11 +1,8 @@
 package models;
-
-import java.util.UUID;
-
 public interface Customers {
 
-	UUID getId();
-	void setId(UUID id);
+	int getId();
+	void setId(int id);
 
 	String getFirstname();
 	void setFirstname(String firstname);

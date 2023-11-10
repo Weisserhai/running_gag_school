@@ -1,12 +1,11 @@
 package models;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public interface Readings {
 
-	UUID getId();
-	void setId(UUID id);
+	int getId();
+	void setId(int id);
 
 	String getTypeofreading();
 	void setTypeofreading(String typeofreading);
