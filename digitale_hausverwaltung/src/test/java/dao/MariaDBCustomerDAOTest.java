@@ -2,9 +2,7 @@ package dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +23,7 @@ public class MariaDBCustomerDAOTest {
     @Test
     @DisplayName("Testing method create")
     void testCreate(){
-        UUID tmpUUID = customer.create("Max","Mustermann");
+        int tmpUUID = customer.create("Max","Mustermann");
         assertNotNull(tmpUUID);
         customer.delete(tmpUUID);
     }
@@ -33,9 +31,9 @@ public class MariaDBCustomerDAOTest {
     @Test
     @DisplayName("Testing method create with object")
     void testCreateObject(){
-        UUID id = null;
-        Customer tmpCustomer = new Customer(id,"Maxl", "Mustermann");
-        UUID tmpUUID = customer.create(tmpCustomer);
+        int id = 555;
+        Customer tmpCustomer = new Customer("Maxl", "Mustermann");
+        int tmpUUID = customer.create(tmpCustomer);
         assertNotNull(tmpUUID);
         customer.delete(tmpUUID);
     }
@@ -43,7 +41,7 @@ public class MariaDBCustomerDAOTest {
     @Test
     @DisplayName("Testing method get")
     void testGet(){
-        UUID tmpUUID = customer.create("Max","Mustermann");
+        int tmpUUID = customer.create("Max","Mustermann");
         Customer tmpCustomer = customer.get(tmpUUID);
         assertNotNull(tmpCustomer);
         customer.delete(tmpUUID);
@@ -52,7 +50,7 @@ public class MariaDBCustomerDAOTest {
     @Test
     @DisplayName("Testing method getAll")
     void testGetAll(){
-        UUID tmpUUID = customer.create("Max","Mustermann");
+        int tmpUUID = customer.create("Max","Mustermann");
         List<Customer> tmpList = customer.getAll();
         assertNotNull(tmpList);
         customer.delete(tmpUUID);
@@ -61,7 +59,7 @@ public class MariaDBCustomerDAOTest {
     @Test
     @DisplayName("Testing method update")
     void testUpdate(){
-        UUID tmpUUID = customer.create("Max","Mustermann");
+        int tmpUUID = customer.create("Max","Mustermann");
         boolean tmpBoolean = customer.update(tmpUUID, "Maxl", "Musternmann");
         assertEquals(true, tmpBoolean);
         customer.delete(tmpUUID);
@@ -70,8 +68,8 @@ public class MariaDBCustomerDAOTest {
     @Test
     @DisplayName("Testing method update with object")
     void testUpdateObject(){
-        UUID tmpUUID = customer.create("Max","Mustermann");
-        Customer tmpCustomer = new Customer(tmpUUID,"Maxl", "Mustermann");
+        int tmpUUID = customer.create("Max","Mustermann");
+        Customer tmpCustomer = new Customer("Maxl", "Mustermann");
         boolean tmpBoolean = customer.update(tmpCustomer);
         assertEquals(true,tmpBoolean);
         customer.delete(tmpUUID);
@@ -80,10 +78,8 @@ public class MariaDBCustomerDAOTest {
     @Test
     @DisplayName("Testing method delete")
     void testDelete(UUID tmpId){
-        UUID tmpUUID = customer.create("Max","Mustermann");
+        int tmpUUID = customer.create("Max","Mustermann");
         boolean tmpBoolean = customer.delete(tmpUUID);
         assertEquals(true,tmpBoolean);
     }
-
-
 }
