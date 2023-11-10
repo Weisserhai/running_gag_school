@@ -12,10 +12,10 @@ public interface CustomerDAO extends DAO<Customer>{
 // CREATE
 
 
-	int create(String firstname,  String lastname);
+	UUID create(String firstname,  String lastname);
 
 
-	int create(Customer customer);
+	UUID create(Customer customer);
 
 //READ
 

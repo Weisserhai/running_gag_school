@@ -17,35 +17,25 @@ public class MariaDBCustomerDAO implements CustomerDAO {
     }
 
     @Override
-    public int create(String firstname, String lastname) {
+    public UUID create(String firstname, String lastname) {
         try {
             PreparedStatement ps = connection.prepareStatement("Insert into USERS (ID, firstName, lastName) values (?, ?, ?)");
-            ps.setObject(1, UUID.randomUUID());
+            UUID generatUuid = UUID.randomUUID();
+            ps.setObject(1, generatUuid);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
-            int resultSet = ps.executeUpdate();
-            return resultSet;
-
+            ps.executeUpdate();
+            return generatUuid;
         } catch (SQLException e) {
             System.out.println("Error from create without Object: " + e.getMessage());
             e.printStackTrace();
         }
-        return 0;
+        return null;
     }
 
     @Override
-    public int create(Customer customer) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("Insert into USERS values ?");
-            ps.setObject(1, customer);
-            int resultSet = ps.executeUpdate();
-            return resultSet;
-
-        } catch (SQLException e) {
-            System.out.println("Error from create with Object: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return 0;
+    public UUID create(Customer customer) {
+        return create(customer.getFirstname(), customer.getLastname());
     }
 
     @Override

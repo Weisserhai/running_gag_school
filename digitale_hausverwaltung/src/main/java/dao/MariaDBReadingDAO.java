@@ -20,7 +20,7 @@ public class MariaDBReadingDAO implements ReadingDAO {
     }
 
     @Override
-    public int create(String typeofreading, LocalDate dateofreading, int metercount, String comment, UUID c_id) {
+    public UUID create(String typeofreading, LocalDate dateofreading, int metercount, String comment, UUID c_id) {
         try {
             PreparedStatement ps = conn.prepareStatement(
                 "INSERT INTO reading (ID, customerId, dateOfReading, typeOfReading, meterCount, comment) VALUES (?, ?, ?, ?, ?, ?)"
@@ -32,17 +32,18 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ps.setString(4, typeofreading);
             ps.setInt(5, metercount);
             ps.setString(6, comment);
-            return ps.executeUpdate();
+            ps.executeUpdate();
+            return generatedUUID;
         } catch (SQLException e) {
             System.out.println("Error from create" + e.getMessage());
             e.printStackTrace();
         }
 
-        return 0;
+        return null;
     }
 
     @Override
-    public int create(Reading reading) {
+    public UUID create(Reading reading) {
         return create(
             reading.getTypeofreading(),
             reading.getDateofreading(), 

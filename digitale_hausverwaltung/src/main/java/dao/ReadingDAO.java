@@ -10,10 +10,10 @@ public interface ReadingDAO extends DAO<Reading>{
 
 	//CREATE
 
-	int create(String typeofreading,  LocalDate dateofreading,  int metercount,  String comment,  UUID c_id);
+	UUID create(String typeofreading,  LocalDate dateofreading,  int metercount,  String comment,  UUID c_id);
 
 
-	int create(Reading reading);
+	UUID create(Reading reading);
 
 
 	//READ

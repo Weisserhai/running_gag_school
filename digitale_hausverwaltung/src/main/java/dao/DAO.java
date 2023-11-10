@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface DAO<T> {
 
-	int create(T t);
+	UUID create(T t);
 
 	T get(UUID i);
 

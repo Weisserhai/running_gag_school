@@ -7,9 +7,6 @@ import java.sql.SQLException;
 
 
 public class MariaDBFacManDAO implements FacManDAO{
-    public static void main(String[] args) {
-        connectToMariaDB();
-    }
     @Override
     public void createDatabaseFacMan() {
         // TODO Auto-generated method stub
