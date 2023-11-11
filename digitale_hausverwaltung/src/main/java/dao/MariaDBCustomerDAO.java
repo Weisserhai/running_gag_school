@@ -110,7 +110,7 @@ public class MariaDBCustomerDAO implements CustomerDAO
         {
             PreparedStatement ps = connection.prepareStatement("Select * from customer");
             ResultSet rs = ps.executeQuery();
-            List<Customer> list = new ArrayList<Customer>();
+            List<Customer> customers = new ArrayList<Customer>();
 
             while (rs.next())
             {
@@ -120,18 +120,19 @@ public class MariaDBCustomerDAO implements CustomerDAO
                     rs.getString("firstName"),
                     rs.getString("lastName")
                 );
-                list.add(customer);
+                customers.add(customer);
             }
             LoggerBackend.LOGGER.log(Level.INFO, "All customers read");
 
-            return list;
+            return customers;
         } 
         catch (SQLException error) 
         {
             LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
             error.printStackTrace();
+
+            return null;
         }
-        return null;
     }
 
     // Update
@@ -170,7 +171,7 @@ public class MariaDBCustomerDAO implements CustomerDAO
     // Delete 
 
     @Override
-    public boolean delete(int id) 
+    public boolean delete(int id) // Deletes customer
     {
         // TODO
         LoggerBackend.LOGGER.log(Level.SEVERE, "Not implemented jet");

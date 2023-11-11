@@ -2,7 +2,8 @@ package models;
 
 import java.time.LocalDate;
 
-public interface Readings {
+public interface Readings 
+{
 
 	int getId();
 	void setId(int id);

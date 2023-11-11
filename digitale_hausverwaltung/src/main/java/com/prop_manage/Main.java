@@ -34,14 +34,24 @@ public class Main
 
         // entity.create("Test", LocalDate.parse("2023-11-11"), 1, "sdhjf", 2);
         // entity.create("Test", LocalDate.parse("2023-11-11"), 1, "ababababababababababababababababababababababababababababababbababababababababa", 2);
-        Reading reading = entity.get(1);
+        // Reading reading = entity.get(1);
 
-        System.out.println(reading.getUUID());
-        System.out.println(reading.getCustomerID());
-        System.out.println(reading.getDateofreading());
-        System.out.println(reading.getTypeofreading());
-        System.out.println(reading.getMeterCount());
-        System.out.println(reading.getComment());
+        // List<Reading> readingList = entity.getAll();
+
+        // List<Reading> readingList = entity.getAllFromCustomer(2);
+
+        List<Reading> readingList = entity.getReadingsInit2Years();
+        
+        
+        for (Reading reading : readingList)
+        {
+            System.out.println(reading.getUUID());
+            System.out.println(reading.getCustomerID());
+            System.out.println(reading.getDateofreading());
+            System.out.println(reading.getTypeofreading());
+            System.out.println(reading.getMeterCount());
+            System.out.println(reading.getComment());
+        }
 
 
     }

@@ -9,24 +9,25 @@ import com.prop_manage.LoggerBackend;
 
 
 public class MariaDBFacManDAO implements FacManDAO{
-    public static int main(String[] args)
+    public static int createDatabaseStructure()
     {
-        MariaDBFacManDAO mariaDBFacManDAO = new MariaDBFacManDAO();
-        if (mariaDBFacManDAO.createDatabaseFacMan() == 1)
+        MariaDBFacManDAO entity = new MariaDBFacManDAO();
+
+        if (entity.createDatabaseFacMan() == 1)
         {
             LoggerBackend.LOGGER.log(Level.WARNING, "An error occurred in \"createDatabaseFacMan\"");
 
             return 1;
         }
 
-        if (mariaDBFacManDAO.createTableCustomer() == 1)
+        if (entity.createTableCustomer() == 1)
         {
             LoggerBackend.LOGGER.log(Level.WARNING, "An error occurred in \"createTableCustomer\"");
 
             return 1;
         }
 
-        if (mariaDBFacManDAO.createTableReading() == 1)
+        if (entity.createTableReading() == 1)
         {
             LoggerBackend.LOGGER.log(Level.WARNING, "An error occurred in \"createTableReading\"");
 
