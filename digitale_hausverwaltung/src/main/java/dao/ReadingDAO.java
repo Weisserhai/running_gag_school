@@ -7,40 +7,31 @@ import models.Reading;
 
 public interface ReadingDAO extends DAO<Reading>{
 
-	//CREATE
+	// CREATE
 
-	int create(String typeofreading,  LocalDate dateofreading,  int metercount,  String comment,  int c_id);
+	int create(String typeOfReading,  LocalDate dateOfReading,  int meterCount,  String comment,  int customerId); // return value is reading id | error value is "-1" not "1"
 
+	int create(Reading reading); // return value is reading id | error value is "-1" not "1"
 
-	int create(Reading reading);
-
-
-	//READ
+	// READ
 
 	Reading get(int id);
 
-
 	List<Reading> getAll();
-
-
 
 	List<Reading> getAllFromCustomer(int cust_id);
 
-
 	List<Reading> getReadingsInit2Years();
 
+	List<Reading> getReadingsForCustomer(int customerId,  LocalDate start,  LocalDate end);
 
-	List<Reading> getReadingsForCustomer(int cust_id,  LocalDate start,  LocalDate end);
-
-
-	//UPDATE
+	// UPDATE
 
 	boolean update(Reading reading);
 
+	boolean update(int id, String typeOfReading,  LocalDate dateOfReading,  int meterCount,  String comment);
 
-	boolean update(int id, String typeofreading,  LocalDate dateofreading,  int metercount,  String comment);
-
-	//DELETE
+	// DELETE
 
 	boolean delete(int id);
 }
