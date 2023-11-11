@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-import com.prop_manage.ProgrammLogger;
+import com.prop_manage.LoggerBackend;
 
 
 public class MariaDBFacManDAO implements FacManDAO{
@@ -14,21 +14,21 @@ public class MariaDBFacManDAO implements FacManDAO{
         MariaDBFacManDAO mariaDBFacManDAO = new MariaDBFacManDAO();
         if (mariaDBFacManDAO.createDatabaseFacMan() == 1)
         {
-            ProgrammLogger.LOGGER.log(Level.WARNING, "An error occurred in \"createDatabaseFacMan\"");
+            LoggerBackend.LOGGER.log(Level.WARNING, "An error occurred in \"createDatabaseFacMan\"");
 
             return 1;
         }
 
         if (mariaDBFacManDAO.createTableCustomer() == 1)
         {
-            ProgrammLogger.LOGGER.log(Level.WARNING, "An error occurred in \"createTableCustomer\"");
+            LoggerBackend.LOGGER.log(Level.WARNING, "An error occurred in \"createTableCustomer\"");
 
             return 1;
         }
 
         if (mariaDBFacManDAO.createTableReading() == 1)
         {
-            ProgrammLogger.LOGGER.log(Level.WARNING, "An error occurred in \"createTableReading\"");
+            LoggerBackend.LOGGER.log(Level.WARNING, "An error occurred in \"createTableReading\"");
 
             return 1;
         }
@@ -53,7 +53,7 @@ public class MariaDBFacManDAO implements FacManDAO{
             String createDatabaseSQL = "CREATE DATABASE " + databaseName + ";";
             statement.execute(createDatabaseSQL);
 
-            ProgrammLogger.LOGGER.log(Level.INFO, "Created new database \"" + databaseName + "\"");
+            LoggerBackend.LOGGER.log(Level.INFO, "Created new database \"" + databaseName + "\"");
 
             statement.close();
             connection.close();
@@ -62,7 +62,7 @@ public class MariaDBFacManDAO implements FacManDAO{
         } 
         catch (Exception error) 
         {
-            ProgrammLogger.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
+            LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
             error.printStackTrace();
 
             return 1;
@@ -89,12 +89,12 @@ public class MariaDBFacManDAO implements FacManDAO{
             String createTableSQL = "CREATE TABLE Customer ("
                     + "ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL, "
                     + "UUID VARCHAR(36) NOT NULL, "
-                    + "firstName VARCHAR(50) NOT NULL, "
-                    + "lastName VARCHAR(50) NOT NULL)";
+                    + "Firstname VARCHAR(50) NOT NULL, "
+                    + "Lastname VARCHAR(50) NOT NULL)";
 
             statement.execute(createTableSQL);
 
-            ProgrammLogger.LOGGER.log(Level.INFO, "Created new table \"Customer\"");
+            LoggerBackend.LOGGER.log(Level.INFO, "Created new table \"Customer\"");
 
             statement.close();
             connection.close();
@@ -105,11 +105,11 @@ public class MariaDBFacManDAO implements FacManDAO{
         {
             if (error.getSQLState().equals("X0Y32")) // Table already exists
             {
-                ProgrammLogger.LOGGER.log(Level.SEVERE, "Table \"Customer\" already exists.");
+                LoggerBackend.LOGGER.log(Level.SEVERE, "Table \"Customer\" already exists.");
             } 
             else 
             {
-                ProgrammLogger.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
+                LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
                 error.printStackTrace();
             }
 
@@ -145,7 +145,7 @@ public class MariaDBFacManDAO implements FacManDAO{
                     + "FOREIGN KEY (customerId) REFERENCES Customer(ID))";
             statement.execute(createTableSQL);
 
-            ProgrammLogger.LOGGER.log(Level.INFO, "Created new table \"Reading\"");
+            LoggerBackend.LOGGER.log(Level.INFO, "Created new table \"Reading\"");
 
             statement.close();
             connection.close();
@@ -156,11 +156,11 @@ public class MariaDBFacManDAO implements FacManDAO{
         {
             if (error.getSQLState().equals("X0Y32")) // Table already exists
             {
-                ProgrammLogger.LOGGER.log(Level.SEVERE, "Table \"Reading\" already exists.");
+                LoggerBackend.LOGGER.log(Level.SEVERE, "Table \"Reading\" already exists.");
             } 
             else 
             {
-                ProgrammLogger.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
+                LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
                 error.printStackTrace();
             }
 
@@ -171,9 +171,6 @@ public class MariaDBFacManDAO implements FacManDAO{
 
     public static Connection connectToMariaDB() 
     {
-
-        System.out.println("ich mach was");
-
         Connection connection = null;
 
         String jdbcUrl = "jdbc:mariadb://localhost:3307/running_gag";
@@ -186,7 +183,7 @@ public class MariaDBFacManDAO implements FacManDAO{
         } 
         catch (SQLException error) 
         {
-            ProgrammLogger.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
+            LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
             error.printStackTrace();
         }
 

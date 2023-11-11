@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
 
 import models.Customer;
 
+import com.prop_manage.LoggerBackend;
 
 public class MariaDBCustomerDAO implements CustomerDAO 
 {
@@ -34,7 +36,7 @@ public class MariaDBCustomerDAO implements CustomerDAO
     {
         try 
         {
-            PreparedStatement ps = connection.prepareStatement("Insert into customer (UUID, firstName, lastName) values (?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("Insert into customer (UUID, Firstname, Lastname) values (?, ?, ?)");
             String generatedUUID = UUID.randomUUID().toString();
 
             ps.setObject(1, generatedUUID);
@@ -45,13 +47,19 @@ public class MariaDBCustomerDAO implements CustomerDAO
             PreparedStatement IdSelect = connection.prepareStatement("SELECT ID FROM customer WHERE UUID = ?");
             IdSelect.setString(1, generatedUUID);
             ResultSet rs = IdSelect.executeQuery();
+
+            if(rs.next())
+            {
+                LoggerBackend.LOGGER.log(Level.INFO, "New customer created");
+            }
+        
             int id = rs.getInt("ID");
 
             return id;
         } 
         catch (SQLException error) 
         {
-            System.out.println("Error from create without Object: " + error.getMessage());
+            LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
             error.printStackTrace();
 
             return -1;
@@ -67,33 +75,48 @@ public class MariaDBCustomerDAO implements CustomerDAO
     // Read
 
     @Override
-    public Customer get(int id) {
-        try {
+    public Customer get(int id) // Returns customer with id <id>
+    {
+        try 
+        {
             PreparedStatement ps = connection.prepareStatement("Select * from customer where ID = ?");
-            ps.setObject(1,id);
+            System.out.println("a");
+            ps.setInt(1,id);
+
             ResultSet resultSet = ps.executeQuery();
+            resultSet.next();
+
             Customer customer = new Customer(
                 resultSet.getInt("ID"),
                 resultSet.getString("UUID"),
-                resultSet.getString("firstName"),
-                resultSet.getString("lastName")
+                resultSet.getString("Firstname"),
+                resultSet.getString("Lastname")
             );
+
+            LoggerBackend.LOGGER.log(Level.INFO, "Customer read");
+
             return customer;
-        } catch (SQLException e) {
-            System.out.println("Error from get: " + e.getMessage());
-            e.printStackTrace();
+        } 
+        catch (SQLException error) 
+        {
+            LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
+            error.printStackTrace();
         }
+
         return null;
     }
 
     @Override
-    public List<Customer> getAll() {
-        try {
+    public List<Customer> getAll() // Returns all customers
+    {
+        try 
+        {
             PreparedStatement ps = connection.prepareStatement("Select * from customer");
             ResultSet resultSet = ps.executeQuery();
             List<Customer> list = new ArrayList<Customer>();
 
-            while (resultSet.next()){
+            while (resultSet.next())
+            {
                 Customer customer = new Customer(
                     resultSet.getInt("ID"),
                     resultSet.getString("UUID"),
@@ -102,46 +125,78 @@ public class MariaDBCustomerDAO implements CustomerDAO
                 );
                 list.add(customer);
             }
+            LoggerBackend.LOGGER.log(Level.INFO, "All customers read");
+
             return list;
-        } catch (SQLException e) {
-            System.out.println("Error from getAll: " + e.getMessage());
-            e.printStackTrace();
+        } 
+        catch (SQLException error) 
+        {
+            LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
+            error.printStackTrace();
         }
         return null;
     }
 
+    // Update
+
     @Override
-    public boolean update(int id, String firstname, String lastname) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("Update customer set firstName = ?, firstName = ? where ID = ?");
+    public boolean update(int id, String firstname, String lastname) 
+    {
+        try 
+        {
+            PreparedStatement ps = connection.prepareStatement("Update customer set Firstname = ?, Lastname = ? where ID = ?");
             ps.setString(1, firstname);
-            ps.setString(2,lastname);
+            ps.setString(2, lastname);
             ps.setInt(3, id);
+
             int resultSet = ps.executeUpdate();
+
+            LoggerBackend.LOGGER.log(Level.INFO, "Customer updated");
+
             return (resultSet != 0);
-        } catch (SQLException e) {
-            System.out.println("Error from update without Object: " + e.getMessage());
-            e.getStackTrace();
+        } 
+        catch (SQLException error) 
+        {
+            LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
+            error.getStackTrace();
+
+            return false;
         }
-        return false;
     }
 
     @Override
-    public boolean update(Customer customer) {
+    public boolean update(Customer customer) // Calls the bigger update
+    {
         return update(customer.getId(), customer.getFirstname(), customer.getLastname());
     }
 
+    // Delete 
+
     @Override
-    public boolean delete(int id) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("Delete from customer where ID = ?");
-            ps.setInt(1, id);
-            int resultSet = ps.executeUpdate();
-            return (resultSet != 0);
-        } catch (SQLException e) {
-            System.out.println("Error from delete: " + e.getMessage());
-            e.getStackTrace();
-        }
+    public boolean delete(int id) 
+    {
+        // TODO
+        LoggerBackend.LOGGER.log(Level.SEVERE, "Not implemented jet");
+
         return false;
+
+
+        // try
+        // {
+        //     PreparedStatement ps = connection.prepareStatement("Delete from customer where ID = ?");
+        //     ps.setInt(1, id);
+        //     int resultSet = ps.executeUpdate();
+
+        //     LoggerBackend.LOGGER.log(Level.INFO, "Customer deleted"); 
+
+        //     return (resultSet != 0);
+        // }
+        // catch (SQLException error) 
+        // {
+        //     LoggerBackend.LOGGER.log(Level.SEVERE, "An error occurred: " + error.getMessage());
+        //     error.getStackTrace();
+
+        //     return false;
+        // }
     }
 }

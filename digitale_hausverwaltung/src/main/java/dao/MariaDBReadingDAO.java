@@ -12,16 +12,19 @@ import java.util.UUID;
 
 import models.Reading;
 
-public class MariaDBReadingDAO implements ReadingDAO {
+public class MariaDBReadingDAO implements ReadingDAO 
+{
     private Connection conn = null;
 
-    public MariaDBReadingDAO() {
+    public MariaDBReadingDAO() 
+    {
         conn = MariaDBFacManDAO.connectToMariaDB();
     }
 
     @Override
     public int create(String typeofreading, LocalDate dateofreading, int metercount, String comment, int c_id) {
-        try {
+        try 
+        {
             Connection conn = MariaDBFacManDAO.connectToMariaDB();
             PreparedStatement ps = conn.prepareStatement(
                 "INSERT INTO reading (UUID, customerId, dateOfReading, typeOfReading, meterCount, comment) VALUES (?, ?, ?, ?, ?, ?)"
@@ -34,13 +37,16 @@ public class MariaDBReadingDAO implements ReadingDAO {
             ps.setInt(5, metercount);
             ps.setString(6, comment);
             ps.executeUpdate();
+            
             PreparedStatement IdSelect = conn.prepareStatement("SELECT ID FROM reading WHERE UUID = ?");
             IdSelect.setString(1, generatedUUID);
             ResultSet rs = IdSelect.executeQuery();
             int id = rs.getInt("ID");
 
             return id;
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) 
+        {
             System.out.println("Error from create" + e.getMessage());
             e.printStackTrace();
         }
@@ -49,7 +55,8 @@ public class MariaDBReadingDAO implements ReadingDAO {
     }
 
     @Override
-    public int create(Reading reading) {
+    public int create(Reading reading) 
+    {
         return create(
             reading.getTypeofreading(),
             reading.getDateofreading(), 

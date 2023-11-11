@@ -1,0 +1,48 @@
+Nov. 11, 2023 3:52:08 PM dao.MariaDBCustomerDAO create
+INFORMATION: New customer created
+
+Nov. 11, 2023 3:55:13 PM dao.MariaDBCustomerDAO create
+INFORMATION: New customer created
+
+Nov. 11, 2023 3:55:35 PM dao.MariaDBCustomerDAO create
+INFORMATION: New customer created
+
+Nov. 11, 2023 3:55:52 PM dao.MariaDBFacManDAO createDatabaseFacMan
+SCHWERWIEGEND: An error occurred: (conn=105) Can't create database 'running_gag'; database exists
+
+Nov. 11, 2023 3:55:52 PM dao.MariaDBFacManDAO main
+WARNUNG: An error occurred in "createDatabaseFacMan"
+
+Nov. 11, 2023 4:00:04 PM dao.MariaDBCustomerDAO create
+INFORMATION: New customer created
+
+Nov. 11, 2023 4:12:17 PM dao.MariaDBCustomerDAO get
+SCHWERWIEGEND: An error occurred: wrong row position
+
+Nov. 11, 2023 4:12:40 PM dao.MariaDBCustomerDAO get
+SCHWERWIEGEND: An error occurred: wrong row position
+
+Nov. 11, 2023 4:19:00 PM dao.MariaDBCustomerDAO get
+SCHWERWIEGEND: An error occurred: wrong row position
+
+Nov. 11, 2023 4:20:58 PM dao.MariaDBCustomerDAO get
+SCHWERWIEGEND: An error occurred: wrong row position
+
+Nov. 11, 2023 4:22:35 PM dao.MariaDBCustomerDAO get
+INFORMATION: Customer read
+
+Nov. 11, 2023 4:28:16 PM dao.MariaDBCustomerDAO getAll
+INFORMATION: All customers read
+
+Nov. 11, 2023 4:36:33 PM dao.MariaDBCustomerDAO update
+INFORMATION: Customer updated
+
+Nov. 11, 2023 4:38:30 PM dao.MariaDBCustomerDAO update
+INFORMATION: Customer updated
+
+Nov. 11, 2023 4:43:30 PM dao.MariaDBCustomerDAO update
+INFORMATION: Customer updated
+
+Nov. 11, 2023 4:44:12 PM dao.MariaDBCustomerDAO delete
+SCHWERWIEGEND: Not implemented jet
+

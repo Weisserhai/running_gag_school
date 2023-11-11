@@ -4,32 +4,27 @@ import java.util.List;
 
 import models.Customer;
 
-public interface CustomerDAO extends DAO<Customer>{
+public interface CustomerDAO extends DAO<Customer>
+{
+	// CREATE
 
+		int create(String firstname,  String lastname); // return value is customer id
 
+		int create(Customer customer); // return value is customer id
 
-// CREATE
+	// READ
 
+		Customer get(int id);
 
-	int create(String firstname,  String lastname);
+		List<Customer> getAll();
 
+	// UPDATE
 
-	int create(Customer customer);
+		boolean update(int id, String firstname,  String lastname);
 
-//READ
+		boolean update(Customer customer);
 
-	Customer get(int id);
+	// DELETE
 
-	List<Customer> getAll();
-
-//UPDATE
-
-	boolean update(int id, String firstname,  String lastname);
-
-
-	boolean update(Customer customer);
-
-//DELETE
-
-	boolean delete(int id);
+		boolean delete(int id);
 }

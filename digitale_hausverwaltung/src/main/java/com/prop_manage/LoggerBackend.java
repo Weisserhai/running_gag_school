@@ -7,15 +7,15 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.LogRecord;
 
-public class ProgrammLogger 
+public class LoggerBackend 
 {
-    public static final Logger LOGGER = Logger.getLogger(ProgrammLogger.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(LoggerBackend.class.getName());
 
     static 
     {
         try 
         {
-            Handler fileHandler = new FileHandler("logfile.log", true);
+            Handler fileHandler = new FileHandler("backend.log", true);
             fileHandler.setFormatter(new ReverseFormatter());
             LOGGER.addHandler(fileHandler);
         } 
