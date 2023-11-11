@@ -9,39 +9,62 @@ import java.util.List;
 import java.util.UUID;
 
 import models.Customer;
-public class MariaDBCustomerDAO implements CustomerDAO {
+
+
+public class MariaDBCustomerDAO implements CustomerDAO 
+{
     private Connection connection = null;
 
-    public MariaDBCustomerDAO(){
+    public static void main(String[] args)
+    {
+        MariaDBCustomerDAO abc = new MariaDBCustomerDAO();
+        abc.create("test", "rest");
+    }
+
+
+    public MariaDBCustomerDAO()
+    {
         connection = MariaDBFacManDAO.connectToMariaDB();
     }
 
+    // Create
+
     @Override
-    public int create(String firstname, String lastname) {
-        try {
+    public int create(String firstname, String lastname) // Inserts new customer into database | error value is "-1" not "1"
+    {
+        try 
+        {
             PreparedStatement ps = connection.prepareStatement("Insert into customer (UUID, firstName, lastName) values (?, ?, ?)");
             String generatedUUID = UUID.randomUUID().toString();
+
             ps.setObject(1, generatedUUID);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
             ps.executeUpdate();
+
             PreparedStatement IdSelect = connection.prepareStatement("SELECT ID FROM customer WHERE UUID = ?");
             IdSelect.setString(1, generatedUUID);
             ResultSet rs = IdSelect.executeQuery();
             int id = rs.getInt("ID");
 
             return id;
-        } catch (SQLException e) {
-            System.out.println("Error from create without Object: " + e.getMessage());
-            e.printStackTrace();
+        } 
+        catch (SQLException error) 
+        {
+            System.out.println("Error from create without Object: " + error.getMessage());
+            error.printStackTrace();
+
+            return -1;
         }
-        return 0;
     }
 
     @Override
-    public int create(Customer customer) {
+    public int create(Customer customer) // Calls the bigger customer creator | error value is "-1" not "1"
+    {
         return create(customer.getFirstname(), customer.getLastname());
     }
+
+    // Read
 
     @Override
     public Customer get(int id) {
