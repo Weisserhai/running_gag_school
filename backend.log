@@ -46,3 +46,24 @@ INFORMATION: Customer updated
 Nov. 11, 2023 4:44:12 PM dao.MariaDBCustomerDAO delete
 SCHWERWIEGEND: Not implemented jet
 
+Nov. 11, 2023 7:12:42 PM dao.MariaDBCustomerDAO delete
+SCHWERWIEGEND: Not implemented jet
+
+Nov. 11, 2023 7:19:53 PM dao.MariaDBReadingDAO create
+INFORMATION: New reading created
+
+Nov. 11, 2023 7:19:53 PM dao.MariaDBReadingDAO create
+SCHWERWIEGEND: An error occurred: (conn=134) Data too long for column 'comment' at row 1
+
+Nov. 11, 2023 7:46:17 PM dao.MariaDBCustomerDAO get
+INFORMATION: Customer read
+
+Nov. 11, 2023 7:46:17 PM dao.MariaDBReadingDAO get
+INFORMATION: Reading read
+
+Nov. 11, 2023 7:48:56 PM dao.MariaDBCustomerDAO get
+INFORMATION: Customer read
+
+Nov. 11, 2023 7:48:56 PM dao.MariaDBReadingDAO get
+INFORMATION: Reading read
+

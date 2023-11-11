@@ -9,9 +9,9 @@ public interface ReadingDAO extends DAO<Reading>{
 
 	//CREATE
 
-	int create(String typeofreading,  LocalDate dateofreading,  int metercount,  String comment,  int c_id);
+	int create(String typeOfReading,  LocalDate dateOfReading,  int metercount,  String comment,  int customerId); // return value is reaing id | error value is "-1" not "1"
 
-	int create(Reading reading);
+	int create(Reading reading); // return value is reding id | error value is "-1" not "1"
 
 	//READ
 

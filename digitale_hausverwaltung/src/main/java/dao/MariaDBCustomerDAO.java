@@ -48,13 +48,11 @@ public class MariaDBCustomerDAO implements CustomerDAO
             IdSelect.setString(1, generatedUUID);
             ResultSet rs = IdSelect.executeQuery();
 
-            if(rs.next())
-            {
-                LoggerBackend.LOGGER.log(Level.INFO, "New customer created");
-            }
-        
+            rs.next();
             int id = rs.getInt("ID");
 
+            LoggerBackend.LOGGER.log(Level.INFO, "New customer created");
+            
             return id;
         } 
         catch (SQLException error) 
@@ -80,17 +78,16 @@ public class MariaDBCustomerDAO implements CustomerDAO
         try 
         {
             PreparedStatement ps = connection.prepareStatement("Select * from customer where ID = ?");
-            System.out.println("a");
             ps.setInt(1,id);
 
-            ResultSet resultSet = ps.executeQuery();
-            resultSet.next();
+            ResultSet rs = ps.executeQuery();
+            rs.next();
 
             Customer customer = new Customer(
-                resultSet.getInt("ID"),
-                resultSet.getString("UUID"),
-                resultSet.getString("Firstname"),
-                resultSet.getString("Lastname")
+                rs.getInt("ID"),
+                rs.getString("UUID"),
+                rs.getString("Firstname"),
+                rs.getString("Lastname")
             );
 
             LoggerBackend.LOGGER.log(Level.INFO, "Customer read");
@@ -112,16 +109,16 @@ public class MariaDBCustomerDAO implements CustomerDAO
         try 
         {
             PreparedStatement ps = connection.prepareStatement("Select * from customer");
-            ResultSet resultSet = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             List<Customer> list = new ArrayList<Customer>();
 
-            while (resultSet.next())
+            while (rs.next())
             {
                 Customer customer = new Customer(
-                    resultSet.getInt("ID"),
-                    resultSet.getString("UUID"),
-                    resultSet.getString("firstName"),
-                    resultSet.getString("lastName")
+                    rs.getInt("ID"),
+                    rs.getString("UUID"),
+                    rs.getString("firstName"),
+                    rs.getString("lastName")
                 );
                 list.add(customer);
             }
@@ -149,11 +146,11 @@ public class MariaDBCustomerDAO implements CustomerDAO
             ps.setString(2, lastname);
             ps.setInt(3, id);
 
-            int resultSet = ps.executeUpdate();
+            int rs = ps.executeUpdate();
 
             LoggerBackend.LOGGER.log(Level.INFO, "Customer updated");
 
-            return (resultSet != 0);
+            return (rs != 0);
         } 
         catch (SQLException error) 
         {
@@ -185,11 +182,11 @@ public class MariaDBCustomerDAO implements CustomerDAO
         // {
         //     PreparedStatement ps = connection.prepareStatement("Delete from customer where ID = ?");
         //     ps.setInt(1, id);
-        //     int resultSet = ps.executeUpdate();
+        //     int rs = ps.executeUpdate();
 
         //     LoggerBackend.LOGGER.log(Level.INFO, "Customer deleted"); 
 
-        //     return (resultSet != 0);
+        //     return (rs != 0);
         // }
         // catch (SQLException error) 
         // {

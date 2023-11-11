@@ -1,5 +1,7 @@
 package models;
-public interface Customers {
+
+public interface Customers 
+{
 
 	int getId();
 	void setId(int id);
@@ -9,7 +11,4 @@ public interface Customers {
 
 	String getLastname();
 	void setLastname(String lastname);
-
-
-
 }

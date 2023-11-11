@@ -8,9 +8,9 @@ public interface CustomerDAO extends DAO<Customer>
 {
 	// CREATE
 
-		int create(String firstname,  String lastname); // return value is customer id
+		int create(String firstname,  String lastname); // return value is customer id | error value is "-1" not "1"
 
-		int create(Customer customer); // return value is customer id
+		int create(Customer customer); // return value is customer id | error value is "-1" not "1"
 
 	// READ
 

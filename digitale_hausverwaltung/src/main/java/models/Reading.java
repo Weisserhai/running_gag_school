@@ -7,44 +7,44 @@ import dao.MariaDBCustomerDAO;
 public class Reading implements Readings{
     private int id;
     private String uuid;
-    private int customer_id;
-    private LocalDate dateofreading;
-    private String typeofreading;
-    private int metercount;
+    private int customerId;
+    private LocalDate dateOfReading;
+    private String typeOfReading;
+    private int meterCount;
     private String comment;
     private Customers customer;
 
-    public Reading(int id, String uuid, int customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
+    public Reading(int id, String uuid, int customerId, LocalDate dateOfReading, String typeOfReading, int meterCount, String comment) {
         this.id = id;
         this.uuid = uuid;
-        this.customer_id = customer_id;
-        this.dateofreading = dateofreading;
-        this.typeofreading = typeofreading;
-        this.metercount = metercount;
+        this.customerId = customerId;
+        this.dateOfReading = dateOfReading;
+        this.typeOfReading = typeOfReading;
+        this.meterCount = meterCount;
         this.comment = comment;
         MariaDBCustomerDAO customerDAO = new MariaDBCustomerDAO();
-        this.customer = customerDAO.get(customer_id);
+        this.customer = customerDAO.get(customerId);
     } 
     
-    public Reading(String uuid, int customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
+    public Reading(String uuid, int customerId, LocalDate dateOfReading, String typeOfReading, int meterCount, String comment) {
         this.uuid = uuid;
-        this.customer_id = customer_id;
-        this.dateofreading = dateofreading;
-        this.typeofreading = typeofreading;
-        this.metercount = metercount;
+        this.customerId = customerId;
+        this.dateOfReading = dateOfReading;
+        this.typeOfReading = typeOfReading;
+        this.meterCount = meterCount;
         this.comment = comment;
         MariaDBCustomerDAO customerDAO = new MariaDBCustomerDAO();
-        this.customer = customerDAO.get(customer_id);
+        this.customer = customerDAO.get(customerId);
     } 
 
-    public Reading(int customer_id, LocalDate dateofreading, String typeofreading, int metercount, String comment) {
-        this.customer_id = customer_id;
-        this.dateofreading = dateofreading;
-        this.typeofreading = typeofreading;
-        this.metercount = metercount;
+    public Reading(int customerId, LocalDate dateOfReading, String typeOfReading, int meterCount, String comment) {
+        this.customerId = customerId;
+        this.dateOfReading = dateOfReading;
+        this.typeOfReading = typeOfReading;
+        this.meterCount = meterCount;
         this.comment = comment;
         MariaDBCustomerDAO customerDAO = new MariaDBCustomerDAO();
-        this.customer = customerDAO.get(customer_id);
+        this.customer = customerDAO.get(customerId);
     } 
 
     public int getId() {
@@ -58,32 +58,32 @@ public class Reading implements Readings{
 
     @Override
     public String getTypeofreading() {
-        return typeofreading;
+        return typeOfReading;
     }
 
     @Override
-    public void setTypeofreading(String typeofreading) {
-        this.typeofreading = typeofreading;
+    public void setTypeofreading(String typeOfReading) {
+        this.typeOfReading = typeOfReading;
     }
 
     @Override
     public LocalDate getDateofreading() {
-        return dateofreading;
+        return dateOfReading;
     }
 
     @Override
-    public void setDateofreading(LocalDate dateofreading) {
-        this.dateofreading = dateofreading;
+    public void setDateofreading(LocalDate dateOfReading) {
+        this.dateOfReading = dateOfReading;
     }
 
     @Override
-    public int getMetercount() {
-        return metercount;
+    public int getMeterCount() {
+        return meterCount;
     }
 
     @Override
-    public void setMetercount(int metercount) {
-        this.metercount = metercount;
+    public void setMeterCount(int meterCount) {
+        this.meterCount = meterCount;
     }
 
     @Override
@@ -107,11 +107,11 @@ public class Reading implements Readings{
     }
 
     public int getCustomerID() {
-        return customer_id;
+        return customerId;
     }
 
-    public void setCustomerID(int customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerID(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getUUID() {

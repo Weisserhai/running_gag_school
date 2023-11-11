@@ -8,13 +8,13 @@ public interface Readings {
 	void setId(int id);
 
 	String getTypeofreading();
-	void setTypeofreading(String typeofreading);
+	void setTypeofreading(String typeOfReading);
 
 	LocalDate getDateofreading();
-	void setDateofreading(LocalDate dateofreading);
+	void setDateofreading(LocalDate dateOfReading);
 
-	int getMetercount();
-	void setMetercount(int metercount);
+	int getMeterCount();
+	void setMeterCount(int meterCount);
 
 	String getComment();
 	void setComment(String comment);
