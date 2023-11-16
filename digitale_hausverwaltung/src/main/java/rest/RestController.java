@@ -1,4 +1,4 @@
-package com.prop_manage;
+package rest;
 
 public class RestController 
 {
